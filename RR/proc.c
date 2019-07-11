@@ -363,7 +363,7 @@ exit(void)
   curproc->turn_around_time = ticks - curproc->turn_around_time;
   release(&tickslock);
 
-  cprintf("pid = %d, turn_around_time=%d, response_time=%d\n", curproc->pid, curproc->turn_around_time, curproc->response_time);
+  cprintf("PID = %d\nTurn Around Time = %d\nResponse Time = %d\n\n", curproc->pid, curproc->turn_around_time, curproc->response_time);
   sched();
   panic("zombie exit");
 }

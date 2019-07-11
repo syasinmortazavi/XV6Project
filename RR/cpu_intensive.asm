@@ -19,12 +19,12 @@ int main(int argc, char const* argv[])
    d:	56                   	push   %esi
    e:	53                   	push   %ebx
    f:	51                   	push   %ecx
-  10:	bb 06 00 00 00       	mov    $0x6,%ebx
+  10:	bb 04 00 00 00       	mov    $0x4,%ebx
   15:	83 ec 0c             	sub    $0xc,%esp
     int id;
     int x;
 
-for (int i=0 ; i < 6; i++)
+for (int i=0 ; i < 4; i++)
     {
         id = fork();
   18:	e8 bd 02 00 00       	call   2da <fork>
@@ -34,7 +34,7 @@ for (int i=0 ; i < 6; i++)
   1f:	89 c6                	mov    %eax,%esi
         if (id < 0) {
   21:	78 35                	js     58 <main+0x58>
-            printf(1, "%d failed in fork!\n", getpid());
+            printf(1, "%d Failed\n", getpid());
         }
         if (id > 0)
   23:	74 4d                	je     72 <main+0x72>
@@ -45,15 +45,15 @@ for (int i=0 ; i < 6; i++)
   2d:	85 c0                	test   %eax,%eax
   2f:	7e f7                	jle    28 <main+0x28>
             
-            printf(1, "Parent %d creating child %d!\n", getpid(), id);
+            printf(1, "I'm Parent (%d) Of Child (%d)\n\n", getpid(), id);
   31:	e8 2c 03 00 00       	call   362 <getpid>
   36:	56                   	push   %esi
   37:	50                   	push   %eax
-  38:	68 ac 07 00 00       	push   $0x7ac
+  38:	68 b4 07 00 00       	push   $0x7b4
   3d:	6a 01                	push   $0x1
   3f:	e8 fc 03 00 00       	call   440 <printf>
   44:	83 c4 10             	add    $0x10,%esp
-for (int i=0 ; i < 6; i++)
+for (int i=0 ; i < 4; i++)
   47:	83 eb 01             	sub    $0x1,%ebx
   4a:	75 cc                	jne    18 <main+0x18>
                 x = x * 0.1 * 0.2;
@@ -64,7 +64,7 @@ for (int i=0 ; i < 6; i++)
     exit();
   4c:	e8 91 02 00 00       	call   2e2 <exit>
   51:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
-            printf(1, "%d failed in fork!\n", getpid());
+            printf(1, "%d Failed\n", getpid());
   58:	e8 05 03 00 00       	call   362 <getpid>
   5d:	83 ec 04             	sub    $0x4,%esp
   60:	50                   	push   %eax
@@ -73,11 +73,11 @@ for (int i=0 ; i < 6; i++)
   68:	e8 d3 03 00 00       	call   440 <printf>
   6d:	83 c4 10             	add    $0x10,%esp
   70:	eb d5                	jmp    47 <main+0x47>
-            printf(1, "Child %d created\n", getpid());
+            printf(1, "I'm Child (%d)\n", getpid());
   72:	e8 eb 02 00 00       	call   362 <getpid>
   77:	52                   	push   %edx
   78:	50                   	push   %eax
-  79:	68 ca 07 00 00       	push   $0x7ca
+  79:	68 a3 07 00 00       	push   $0x7a3
   7e:	6a 01                	push   $0x1
   80:	e8 bb 03 00 00       	call   440 <printf>
   85:	83 c4 10             	add    $0x10,%esp
@@ -672,7 +672,7 @@ printint(int fd, int xx, int base, int sgn)
  3d2:	31 d2                	xor    %edx,%edx
  3d4:	8d 7e 01             	lea    0x1(%esi),%edi
  3d7:	f7 f1                	div    %ecx
- 3d9:	0f b6 92 e4 07 00 00 	movzbl 0x7e4(%edx),%edx
+ 3d9:	0f b6 92 dc 07 00 00 	movzbl 0x7dc(%edx),%edx
   }while((x /= base) != 0);
  3e0:	85 c0                	test   %eax,%eax
     buf[i++] = digits[x % base];
@@ -963,7 +963,7 @@ printf(int fd, const char *fmt, ...)
  5f2:	31 ff                	xor    %edi,%edi
  5f4:	e9 8f fe ff ff       	jmp    488 <printf+0x48>
           s = "(null)";
- 5f9:	bb dc 07 00 00       	mov    $0x7dc,%ebx
+ 5f9:	bb d4 07 00 00       	mov    $0x7d4,%ebx
         while(*s != 0){
  5fe:	b8 28 00 00 00       	mov    $0x28,%eax
  603:	e9 72 ff ff ff       	jmp    57a <printf+0x13a>
@@ -984,7 +984,7 @@ free(void *ap)
 
   bp = (Header*)ap - 1;
   for(p = freep; !(bp > p && bp < p->s.ptr); p = p->s.ptr)
- 611:	a1 90 0a 00 00       	mov    0xa90,%eax
+ 611:	a1 88 0a 00 00       	mov    0xa88,%eax
 {
  616:	89 e5                	mov    %esp,%ebp
  618:	57                   	push   %edi
@@ -1025,7 +1025,7 @@ free(void *ap)
     p->s.ptr = bp;
  64d:	89 08                	mov    %ecx,(%eax)
   freep = p;
- 64f:	a3 90 0a 00 00       	mov    %eax,0xa90
+ 64f:	a3 88 0a 00 00       	mov    %eax,0xa88
 }
  654:	5b                   	pop    %ebx
  655:	5e                   	pop    %esi
@@ -1057,7 +1057,7 @@ free(void *ap)
     p->s.size += bp->s.size;
  687:	03 53 fc             	add    -0x4(%ebx),%edx
   freep = p;
- 68a:	a3 90 0a 00 00       	mov    %eax,0xa90
+ 68a:	a3 88 0a 00 00       	mov    %eax,0xa88
     p->s.size += bp->s.size;
  68f:	89 50 04             	mov    %edx,0x4(%eax)
     p->s.ptr = bp->s.ptr;
@@ -1090,7 +1090,7 @@ malloc(uint nbytes)
   nunits = (nbytes + sizeof(Header) - 1)/sizeof(Header) + 1;
  6a9:	8b 45 08             	mov    0x8(%ebp),%eax
   if((prevp = freep) == 0){
- 6ac:	8b 15 90 0a 00 00    	mov    0xa90,%edx
+ 6ac:	8b 15 88 0a 00 00    	mov    0xa88,%edx
   nunits = (nbytes + sizeof(Header) - 1)/sizeof(Header) + 1;
  6b2:	8d 78 07             	lea    0x7(%eax),%edi
  6b5:	c1 ef 03             	shr    $0x3,%edi
@@ -1127,7 +1127,7 @@ malloc(uint nbytes)
       return (void*)(p + 1);
     }
     if(p == freep)
- 6f1:	39 05 90 0a 00 00    	cmp    %eax,0xa90
+ 6f1:	39 05 88 0a 00 00    	cmp    %eax,0xa88
  6f7:	89 c2                	mov    %eax,%edx
  6f9:	75 ed                	jne    6e8 <malloc+0x48>
   p = sbrk(nu * sizeof(Header));
@@ -1146,7 +1146,7 @@ malloc(uint nbytes)
  715:	50                   	push   %eax
  716:	e8 f5 fe ff ff       	call   610 <free>
   return freep;
- 71b:	8b 15 90 0a 00 00    	mov    0xa90,%edx
+ 71b:	8b 15 88 0a 00 00    	mov    0xa88,%edx
       if((p = morecore(nunits)) == 0)
  721:	83 c4 10             	add    $0x10,%esp
  724:	85 d2                	test   %edx,%edx
@@ -1175,7 +1175,7 @@ malloc(uint nbytes)
         p->s.size = nunits;
  744:	89 78 04             	mov    %edi,0x4(%eax)
       freep = prevp;
- 747:	89 15 90 0a 00 00    	mov    %edx,0xa90
+ 747:	89 15 88 0a 00 00    	mov    %edx,0xa88
 }
  74d:	8d 65 f4             	lea    -0xc(%ebp),%esp
       return (void*)(p + 1);
@@ -1189,13 +1189,13 @@ malloc(uint nbytes)
  758:	90                   	nop
  759:	8d b4 26 00 00 00 00 	lea    0x0(%esi,%eiz,1),%esi
     base.s.ptr = freep = prevp = &base;
- 760:	c7 05 90 0a 00 00 94 	movl   $0xa94,0xa90
+ 760:	c7 05 88 0a 00 00 8c 	movl   $0xa8c,0xa88
  767:	0a 00 00 
- 76a:	c7 05 94 0a 00 00 94 	movl   $0xa94,0xa94
+ 76a:	c7 05 8c 0a 00 00 8c 	movl   $0xa8c,0xa8c
  771:	0a 00 00 
     base.s.size = 0;
- 774:	b8 94 0a 00 00       	mov    $0xa94,%eax
- 779:	c7 05 98 0a 00 00 00 	movl   $0x0,0xa98
+ 774:	b8 8c 0a 00 00       	mov    $0xa8c,%eax
+ 779:	c7 05 90 0a 00 00 00 	movl   $0x0,0xa90
  780:	00 00 00 
  783:	e9 44 ff ff ff       	jmp    6cc <malloc+0x2c>
  788:	90                   	nop

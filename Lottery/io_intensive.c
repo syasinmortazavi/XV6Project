@@ -12,11 +12,11 @@ int main(int argc, char const *argv[])
         id = fork();
         if (id < 0)
         {
-            printf(1, "Failed\n");
+            printf(1, "failed in fork!\n");
         }
         else if (id > 0) 
         {
-            printf(1, "I'm Parent (%d) Of Child (%d)\n", getpid(), id);
+            printf(1, "I'm Parent (%d) Of Child (%d)\n\n", getpid(), id);
             while (wait() <= 0);
         }
         else 

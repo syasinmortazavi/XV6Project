@@ -8,7 +8,7 @@ int main(int argc, char const* argv[])
     int id;
     int x;
 
-for (int i=0 ; i < 6; i++)
+for (int i=0 ; i < 4; i++)
     {
         id = fork();
         if (id < 0) {
@@ -18,10 +18,10 @@ for (int i=0 ; i < 6; i++)
         {
             while (wait() <= 0);
             
-            printf(1, "I'm Parent (%d) Of Child (%d)\n", getpid(), id);
+            printf(1, "I'm Parent (%d) Of Child (%d)\n\n", getpid(), id);
             for (int j = 0; j < 100000; j++) 
             {
-                x = x * 1000;
+                x = x * 69 * 69;
             }
         } 
         if(id == 0) 
@@ -29,7 +29,7 @@ for (int i=0 ; i < 6; i++)
             printf(1, "I'm Child (%d)\n", getpid());
             for (int j = 0; j < 100000; j++)
             {
-                x = x * 0.001;
+                x = x * 0.1 * 0.2;
             }
             break;
         }

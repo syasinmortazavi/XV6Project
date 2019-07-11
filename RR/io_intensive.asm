@@ -19,11 +19,11 @@ int main(int argc, char const *argv[])
    d:	56                   	push   %esi
    e:	53                   	push   %ebx
    f:	51                   	push   %ecx
-  10:	bb 06 00 00 00       	mov    $0x6,%ebx
+  10:	bb 04 00 00 00       	mov    $0x4,%ebx
   15:	83 ec 0c             	sub    $0xc,%esp
     int id;
 
-    for (int i=0; i < 6; i++) {
+    for (int i=0; i < 4; i++) {
         id = fork();
   18:	e8 fd 02 00 00       	call   31a <fork>
         if (id < 0)
@@ -38,11 +38,11 @@ int main(int argc, char const *argv[])
         else if (id > 0) 
   23:	74 4c                	je     71 <main+0x71>
         {
-            printf(1, "Parent %d creating child %d!\n", getpid(), id);
+            printf(1, "I'm Parent (%d) Of Child (%d)\n\n", getpid(), id);
   25:	e8 78 03 00 00       	call   3a2 <getpid>
   2a:	56                   	push   %esi
   2b:	50                   	push   %eax
-  2c:	68 e9 07 00 00       	push   $0x7e9
+  2c:	68 0c 08 00 00       	push   $0x80c
   31:	6a 01                	push   $0x1
   33:	e8 48 04 00 00       	call   480 <printf>
             while (wait() <= 0);
@@ -52,7 +52,7 @@ int main(int argc, char const *argv[])
   40:	e8 e5 02 00 00       	call   32a <wait>
   45:	85 c0                	test   %eax,%eax
   47:	7e f7                	jle    40 <main+0x40>
-    for (int i=0; i < 6; i++) {
+    for (int i=0; i < 4; i++) {
   49:	83 eb 01             	sub    $0x1,%ebx
   4c:	75 ca                	jne    18 <main+0x18>
             }
@@ -70,16 +70,16 @@ int main(int argc, char const *argv[])
   60:	6a 01                	push   $0x1
   62:	e8 19 04 00 00       	call   480 <printf>
   67:	83 c4 10             	add    $0x10,%esp
-    for (int i=0; i < 6; i++) {
+    for (int i=0; i < 4; i++) {
   6a:	83 eb 01             	sub    $0x1,%ebx
   6d:	75 a9                	jne    18 <main+0x18>
   6f:	eb dd                	jmp    4e <main+0x4e>
-            printf(1, "Child %d created\n", getpid());
+            printf(1, "I'm Child (%d)\n", getpid());
   71:	e8 2c 03 00 00       	call   3a2 <getpid>
   76:	53                   	push   %ebx
   77:	50                   	push   %eax
   78:	bb 64 00 00 00       	mov    $0x64,%ebx
-  7d:	68 07 08 00 00       	push   $0x807
+  7d:	68 e9 07 00 00       	push   $0x7e9
   82:	6a 01                	push   $0x1
   84:	e8 f7 03 00 00       	call   480 <printf>
   89:	83 c4 10             	add    $0x10,%esp
@@ -102,7 +102,7 @@ int main(int argc, char const *argv[])
   aa:	89 c6                	mov    %eax,%esi
                 write (fd, buffer, 16);
   ac:	6a 10                	push   $0x10
-  ae:	68 19 08 00 00       	push   $0x819
+  ae:	68 f9 07 00 00       	push   $0x7f9
   b3:	50                   	push   %eax
   b4:	e8 89 02 00 00       	call   342 <write>
                 close (fd);
@@ -994,7 +994,7 @@ printf(int fd, const char *fmt, ...)
  632:	31 ff                	xor    %edi,%edi
  634:	e9 8f fe ff ff       	jmp    4c8 <printf+0x48>
           s = "(null)";
- 639:	bb 2a 08 00 00       	mov    $0x82a,%ebx
+ 639:	bb 2c 08 00 00       	mov    $0x82c,%ebx
         while(*s != 0){
  63e:	b8 28 00 00 00       	mov    $0x28,%eax
  643:	e9 72 ff ff ff       	jmp    5ba <printf+0x13a>

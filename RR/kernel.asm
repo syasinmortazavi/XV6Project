@@ -8370,7 +8370,7 @@ wakeup1(void *chan)
   release(&tickslock);
 8010437d:	c7 04 24 60 b8 11 80 	movl   $0x8011b860,(%esp)
 80104384:	e8 a7 09 00 00       	call   80104d30 <release>
-  cprintf("pid = %d, turn_around_time=%d, response_time=%d\n", curproc->pid, curproc->turn_around_time, curproc->response_time);
+  cprintf("PID = %d\nTurn Around Time = %d\nResponse Time = %d\n\n", curproc->pid, curproc->turn_around_time, curproc->response_time);
 80104389:	ff b3 dc 00 00 00    	pushl  0xdc(%ebx)
 8010438f:	ff b3 e0 00 00 00    	pushl  0xe0(%ebx)
 80104395:	ff 73 10             	pushl  0x10(%ebx)
