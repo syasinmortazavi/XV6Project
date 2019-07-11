@@ -12,24 +12,24 @@ for (int i=0 ; i < 6; i++)
     {
         id = fork();
         if (id < 0) {
-            printf(1, "%d failed in fork!\n", getpid());
+            printf(1, "%d Failed\n", getpid());
         }
         if (id > 0)
         {
             while (wait() <= 0);
             
-            printf(1, "Parent %d creating child %d!\n", getpid(), id);
+            printf(1, "I'm Parent (%d) Of Child (%d)\n", getpid(), id);
             for (int j = 0; j < 100000; j++) 
             {
-                x = x * 69 * 69;
+                x = x * 1000;
             }
         } 
         if(id == 0) 
         {
-            printf(1, "Child %d created\n", getpid());
+            printf(1, "I'm Child (%d)\n", getpid());
             for (int j = 0; j < 100000; j++)
             {
-                x = x * 0.1 * 0.2;
+                x = x * 0.001;
             }
             break;
         }
